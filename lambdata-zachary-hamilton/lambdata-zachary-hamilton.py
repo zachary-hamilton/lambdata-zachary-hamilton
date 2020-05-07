@@ -10,14 +10,32 @@ def list_to_column(df, lst, column_name):
 
     columns = df.columns.tolist()
     columns.append(column_name)
-    print(columns)
-    
+        
     df = pd.concat([df, my_series], axis=1)
     df.columns = columns
-    print(df)
     return df
 
+def split_dates(df, column, year=True, month=True, day=True, weekday=True, replace=True):
+    '''
+    This function will take a dataframe column that is a date and split it into its
+    comoponent parts
+    '''
 
-df = pd.DataFrame({'a': [1,2,3], 'b':[3,4,5]})
-lst = [6,7]
-list_to_column(df, lst, 'c')
+    df[column] = df[column].apply(lambda x: pd.to_datetime(x, infer_datetime_format=True))
+    
+    if year:
+        df['year'] = df[column].apply(lambda x: x.year)
+
+    if month:
+        df['month'] = df[column].apply(lambda x: x.month)
+
+    if day:
+        df['day'] = df[column].apply(lambda x: x.day)
+
+    if weekday:
+        df['weekday'] = df[column].apply(lambda x: x.weekday())
+    
+    if replace:
+        df = df.drop(columns=[column])
+
+    return df
