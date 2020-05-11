@@ -3,7 +3,7 @@
 ## Installation
 
 ```py
-pip install -i https://test.pypi.org/simple/ lambdata-zachary-hamilton==1.0
+pip install -i https://test.pypi.org/simple/ lambdata-zachary-hamilton==2.0
 ```
 
 ## Usage
@@ -12,6 +12,7 @@ pip install -i https://test.pypi.org/simple/ lambdata-zachary-hamilton==1.0
 import pandas as pd
 from lambdata_zachary_hamilton.lambdata_zachary_hamilton import list_to_column
 from lambdata_zachary_hamilton.lambdata_zachary_hamilton import split_dates
+from lambdata_zachary_hamilton.lambdata_zachary_hamilton import Column
 
 
 df = pd.DataFrame({'a':[1,2,3]})
