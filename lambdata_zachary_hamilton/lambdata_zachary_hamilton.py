@@ -11,14 +11,35 @@ def list_to_column(df, lst, column_name):
     # turns the original list into a series
     my_series = pd.Series(lst)
 
+    columns = df.columns.tolist()
+    columns.append(column_name)
+
     # adding the series to the dataframe
     df = pd.concat([df, my_series], axis=1)
 
-    # renaming the column headers
-    columns = df.columns.tolist()
-    columns.append(column_name)
     df.columns = columns
     return df
+
+
+# refactoring the above code to utilize class
+class Column:
+    def __init__(self, lst, column_name):
+        self.lst = lst
+        self.column_name = column_name
+        self.my_series = pd.Series(lst)
+
+    def add_to_dataframe(self, df):
+        df = df.copy()
+
+        df_columns = df.columns.tolist()
+        df_columns.append(self.column_name)
+
+        df = pd.concat([df, self.my_series], axis=1)
+
+        df.columns = df_columns
+        return df
+
+    
 
 
 def split_dates(df, column, year=True, month=True,
@@ -50,3 +71,5 @@ def split_dates(df, column, year=True, month=True,
         df = df.drop(columns=[column])
 
     return df
+
+
